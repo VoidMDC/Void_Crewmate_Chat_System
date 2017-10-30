@@ -1,0 +1,17 @@
+﻿<Properties StartupItem="Assembly-CSharp.csproj">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextParser.cs">
+    <Files>
+      <File FileName="Assets\Resources\Scripts\SegmentDisplayer.cs" Line="21" Column="10" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxController.cs" Line="53" Column="17" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTSTextboxNameTag.cs" Line="20" Column="4" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextParser.cs" Line="13" Column="2" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\CG-College\Documents\College\Classes\[CAP-2048] Game Development Project\Unity Projects\ChatSystemProofOfConcept\Assets\Resources\Scripts\SegmentDisplayer.cs" line="76" column="64" />
+    </BreakpointStore>
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
