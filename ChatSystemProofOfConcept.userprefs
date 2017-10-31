@@ -1,11 +1,11 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextParser.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextbox.cs">
     <Files>
-      <File FileName="Assets\Resources\Scripts\SegmentDisplayer.cs" Line="21" Column="10" />
-      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxController.cs" Line="53" Column="17" />
-      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTSTextboxNameTag.cs" Line="20" Column="4" />
-      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextParser.cs" Line="13" Column="2" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxPortrait.cs" Line="1" Column="1" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxComponent.cs" Line="1" Column="1" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTITextboxComponent.cs" Line="1" Column="1" />
+      <File FileName="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextbox.cs" Line="39" Column="34" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

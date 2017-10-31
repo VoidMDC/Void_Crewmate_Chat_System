@@ -59,20 +59,18 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 		void SubscribeToEvents()
 		{
-			DoneSplittingIntoWords += OnDoneSplittingIntoWords;
-			DoneGroupingIntoLines += OnDoneGroupingIntoLines;
+
 		}
 
 		// parsing functions
 		public void ParseText()
 		{
 			
-			words = new List<string>(SplitIntoWords(textToParse));
-			lines = new List<string>(GroupIntoLines(words));
-			parsedText = new List<string>(GroupIntoBoxfuls(lines));
+			words 			= 		new List<string>(SplitIntoWords(textToParse));
+			lines 			= 		new List<string>(GroupIntoLines(words));
+			parsedText 		= 		new List<string>(GroupIntoBoxfuls(lines));
 
 			RemoveEmptyBoxfuls();
-
 
 		}
 
@@ -264,53 +262,42 @@ namespace TeaspoonTools.TextboxSystem.Utils
 			IList<string> lines = new List<string>();
 
 			// use a label prefab as a measuring stick
-			GameObject testingLabel = TSTSpecialObjects.testLabel;
-			testingLabel.name = "LineGroupTestingLabel";
-			Text labelText = testingLabel.GetComponent<Text>();
-			RectTransform labelRect = testingLabel.GetComponent<RectTransform>();
-			labelRect.SetParent(textObj.transform.parent);
-
-			labelText.rectTransform.localScale = textObj.rectTransform.localScale;
-			//labelText.textObj.rectTransform.sizeDelta = textObj.textObj.rectTransform.sizeDelta
-			labelText.text = "";
-			labelText.font = textObj.font;
-			labelText.fontSize = textObj.fontSize;
+			GameObject testingLabel 	= 		SetupTestLabel();
+			Text labelText 				= 		testingLabel.GetComponent<Text>();
+			RectTransform labelRect 	= 		testingLabel.GetComponent<RectTransform>();
 
 			// cached values
-			int wordsToGoThrough = words.Count;
 			float widthBoundary = textObj.rectTransform.rect.width;
 
 			// helps with the word wrapping
 			string prevText = "";
 
 			// add words until they make a full line on this textbox
-			for (int i = 0; i < wordsToGoThrough; i++)
+			for (int i = 0; i < words.Count; i++)
 			{
-
-				string currentWord = words[i];
-				labelText.text += currentWord + " ";
+				
+				labelText.text += words[i] + " ";
 
 				Canvas.ForceUpdateCanvases();
 				// ^ will not work without this
 
 				// evaluate the current state of the label text
-				bool onLastWord = i == wordsToGoThrough - 1;
-				bool atBoundary = labelRect.rect.width == widthBoundary;
-				bool pastBoundary = labelRect.rect.width > widthBoundary;
-				bool labelHasSomething = labelText.text != "";
+				bool onLastWord 		= 		i == words.Count - 1;
+				bool atOrPastBoundary 	= 		labelRect.rect.width >= widthBoundary;
+				bool labelHasSomething 	= 		!string.IsNullOrEmpty(labelText.text);
 
-				if (pastBoundary && i != 0)
+				if (atOrPastBoundary && i > 0)
 				{
 					// do some word wrapping. The i != 0 part is to avoid the first line being
 					// empty if there is just one overly-long word to show
 					lines.Add(prevText + "\n");
-					labelText.text = currentWord + ' ';
+					labelText.text = words[i] + " ";
 				}
 
-				if (atBoundary || (onLastWord && labelHasSomething))
+				if (onLastWord && labelHasSomething)
 				{
 					// no words left behind! That is the american dream!
-					lines.Add(labelText.text + "\n");
+					lines.Add(labelText.text);
 					labelText.text = "";
 				}
 
@@ -328,22 +315,25 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 			IList<string> result = new List<string>();
 
-			int linesToGoThrough = lines.Count;
-			string boxFul = "";
+			string boxful = "";
+
+			// helps evaluate when to add what was in the boxful
+			bool fullBoxful;
+			bool atLastLine;
 
 			// when the current boxful gets enough content, or we're at the last line to
 			// parse, register it in the parsedText list
-					for (int i = 0; i < linesToGoThrough; i++)
+			for (int i = 0; i < lines.Count; i++)
 			{
-				boxFul += lines[i];
+				boxful += lines[i];
 
-				bool fullBoxful = ((i + 1) % linesPerTextbox) == 0;
-				bool atLastLine = i == linesToGoThrough - 1;
+				fullBoxful 		= 		((i + 1) % linesPerTextbox) == 0;
+				atLastLine 		= 		i == lines.Count - 1;
 
 				if (fullBoxful || atLastLine)
 				{
-					result.Add(boxFul);
-					boxFul = "";
+					result.Add(boxful);
+					boxful = "";
 				}
 
 			}
@@ -371,7 +361,7 @@ namespace TeaspoonTools.TextboxSystem.Utils
 			Text labelText = testingLabel.GetComponent<Text>();
 			RectTransform labelRect = testingLabel.GetComponent<RectTransform>();
 
-			labelRect.SetParent(textObj.transform.parent);
+			labelRect.SetParent(textObj.transform.parent, false);
 
 			labelText.rectTransform.localScale = textObj.rectTransform.localScale;
 			labelText.text = "";
@@ -380,18 +370,6 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 			return testingLabel;
 		}
-	
-		void OnDoneSplittingIntoWords(object sender, EventArgs e)
-		{
-			textObj.StartCoroutine (GroupIntoLinesCoroutine ());
-		}
-
-		void OnDoneGroupingIntoLines(object sender, EventArgs e)
-		{
-			textObj.StartCoroutine (GroupIntoBoxfulsCoroutine ());
-		}
-
-
 	
 	}
 	

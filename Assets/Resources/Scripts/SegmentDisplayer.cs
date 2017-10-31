@@ -43,7 +43,7 @@ public class SegmentDisplayer : MonoBehaviour {
 			//textbox.transform.localScale = new Vector3 (1, 1, 1);
 			textbox.transform.SetParent (GameObject.Find ("Canvas").transform, false);
 			textboxController = textbox.GetComponent<TextboxController> ();
-			textboxController.PlaceOnScreen (new Vector2 (0.5f, 0.5f));
+			textboxController.PlaceOnScreen (new Vector2 (0.5f, 0.15f));
 
 			RearrangeDialogChain ();
 			StartCoroutine (DisplayBoxfulCoroutine ());
@@ -70,6 +70,7 @@ public class SegmentDisplayer : MonoBehaviour {
 
 		string dialogueText = "";
 		Dialogue dialogueToAdd;
+		textParser.textObj = textboxController.textboxText;
 
 		foreach (Dialogue dialogue in chainToDisplay.dialogueChain.dialogues) 
 		{
@@ -80,7 +81,8 @@ public class SegmentDisplayer : MonoBehaviour {
 			// parse the text into boxfuls
 			//textParser = new TSTTextParser();
 			textParser.textToParse = dialogueText;
-			textParser.textObj = textboxController.textboxText;
+			//textParser.textObj = textboxController.textboxText;
+
 			textParser.ParseText ();
 
 			dialogueToAdd = new Dialogue ();
@@ -151,7 +153,7 @@ public class SegmentDisplayer : MonoBehaviour {
 				dialogueText += sentence + " ";
 
 			textParser = new TSTTextParser ();
-			textParser.textToParse = dialogueText;
+			textParser.textToParse = string.Copy(dialogueText);
 			textParser.textObj = textboxController.textboxText;
 			textParser.ParseText ();
 			boxfuls.AddRange (textParser.parsedText);
