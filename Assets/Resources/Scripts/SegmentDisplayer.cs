@@ -130,7 +130,7 @@ public class SegmentDisplayer : MonoBehaviour {
 
 		}
 
-		//textboxController.Close ();
+		textboxController.Close ();
 
 
 		showingSegment = false;
