@@ -1,0 +1,42 @@
+[
+	{
+		"title": "ChickenAlfredo",
+		"tags": "",
+		"body": "<<set $foodChosen to \"chicken alfredo\">>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\n<<if $foodChosen is \"chicken alfredo\">>\n    All right, one chicken alfredo, coming right up.\n<<endif>>\n<<if $foodChosen is \"miso soup\">>\n    All right, one miso soup, coming right up.\n<<endif>>\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\n... Here you go. One chicken alfredo.\n<</Textbox>>\n\n<<Textbox>>\n<<name|First Mate>>\n<<portrait|hajime>>\nThanks!\n<</Textbox>>\n\n[[Time to eat!|Eat]]",
+		"position": {
+			"x": 422,
+			"y": 58
+		},
+		"colorID": 0
+	},
+	{
+		"title": "crewmateChatStart",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|First Mate>>\n<<portrait|hajime>>\nHey.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\nWhat's up?\n<</Textbox>>\n\n<<Textbox>>\n<<name|First Mate>>\n<<portrait|hajime>>\nI'm hongry.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\nAll right. What do you want?\n<</Textbox>>\n\n<<Textbox>>\n<<name|First Mate>>\n<<portrait|hajime>>\n(Hmm... What DO I want?)\n<</Textbox>>\n\n[[Chicken alfredo, please!|ChickenAlfredo]] \n[[Miso soup sounds good!|MisoSoup]]",
+		"position": {
+			"x": 8,
+			"y": 212
+		},
+		"colorID": 0
+	},
+	{
+		"title": "MisoSoup",
+		"tags": "",
+		"body": "<<set $foodChosen to \"miso soup\">>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\n<<if $foodChosen is \"chicken alfredo\">>\n    All right, one chicken alfredo, coming right up.\n<<endif>>\n<<if $foodChosen is \"miso soup\">>\n    All right, one miso soup, coming right up.\n<<endif>>\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\n... Here you go. One miso soup.\n<</Textbox>>\n\n<<Textbox>>\n<<name|First Mate>>\n<<portrait|hajime>>\nThanks!\n<</Textbox>>\n\n[[Time to eat!|Eat]]",
+		"position": {
+			"x": 438,
+			"y": 389
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Eat",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|First Mate>>\n<<portrait|hajime>>\n<<if $foodChosen is \"chicken alfredo\">>\n    That was some good chicken alfredo! <<print $foodChosen>>\n<<endif>>\n<<if $foodChosen is \"miso soup\">>\n    That was some good miso soup! <<print $foodChosen>>\n<<endif>>\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cheff>>\n<<portrait|teruteru>>\nGlad you like it.\n<</Textbox>>",
+		"position": {
+			"x": 815,
+			"y": 238
+		},
+		"colorID": 0
+	}
+]

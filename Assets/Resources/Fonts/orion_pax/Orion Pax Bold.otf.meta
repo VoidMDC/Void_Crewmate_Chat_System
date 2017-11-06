@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 877ba4f94d85f6c409fa107d83918ae9
+timeCreated: 1509978106
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Orion Pax
+  fontNames:
+  - Orion Pax
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 26e6a8430e59e9c4589ce9e8ed611e61, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

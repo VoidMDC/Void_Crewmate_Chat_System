@@ -151,6 +151,12 @@ namespace TeaspoonTools.TextboxSystem
 
 		}
 
+		public void StartShowingText(List<string> textToShow)
+		{
+			isDisplayingText = true;
+			textboxText.StartShowingText (textToShow);
+		}
+
 		public void Close()
 		{
 			if (!isClosing) {

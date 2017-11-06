@@ -194,9 +194,12 @@ namespace TeaspoonTools.Utils.Extensions
             Vector2 origin = parentRect.GetLowerLeftCorner();
             Vector2 newPos = origin;
 
-            
-            float xShift = parentRect.rect.width * position.x;
-            float yShift = parentRect.rect.height * position.y;
+            // better account for scale, or it'll get wonky
+			float effectiveWidth = parentRect.rect.width * rectTransform.localScale.x;
+			float effectiveHeight = parentRect.rect.height * rectTransform.localScale.y;
+
+			float xShift = effectiveWidth * position.x;
+			float yShift = effectiveHeight * position.y;
             newPos += new Vector2(xShift, yShift);
             
 
@@ -207,15 +210,15 @@ namespace TeaspoonTools.Utils.Extensions
             
             else
             {
-                // TODO: account for when the rect is too far up or down
+            
 
                 // not using the edge-getting extension functions for the following few floats, 
                 // since this needs to know the parent's edge coords in the local space of 
                 // this rectTransform
-                float parentLeftEdgeX = -parentRect.rect.width * parentRect.pivot.x;
-                float parentRightEdgeX = parentRect.rect.width * (1f - parentRect.pivot.x);
-                float parentUpperEdgeY = parentRect.rect.height * (1f - parentRect.pivot.x);
-                float parentLowerEdgeY = -parentRect.rect.height * parentRect.pivot.y;
+				float parentLeftEdgeX = -effectiveWidth * parentRect.pivot.x;
+                float parentRightEdgeX = effectiveWidth * (1f - parentRect.pivot.x);
+                float parentUpperEdgeY = effectiveHeight * (1f - parentRect.pivot.x);
+                float parentLowerEdgeY = -effectiveHeight * parentRect.pivot.y;
 
                 bool tooFarLeft = rectTransform.LeftEdgeX() < parentLeftEdgeX;
                 bool tooFarRight = rectTransform.RightEdgeX() > parentRightEdgeX;

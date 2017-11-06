@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{C19ED8D2-BB21-7687-4BDD-EB68D8E0F090}</ProjectGuid>
+    <ProjectGuid>{CB7E511E-3E17-3FF8-DC82-E8E6A739EBAC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -52,6 +52,13 @@
      <Compile Include="Assets\Resources\Scripts\DialogueTrigger.cs" />
      <Compile Include="Assets\Resources\Scripts\SegmentDisplayer.cs" />
      <Compile Include="Assets\Resources\Scripts\SegmentReader.cs" />
+     <Compile Include="Assets\Scripts\CommandTester.cs" />
+     <Compile Include="Assets\Scripts\DialogueUITest.cs" />
+     <Compile Include="Assets\Scripts\OptionSetController.cs" />
+     <Compile Include="Assets\Scripts\ParseTester.cs" />
+     <Compile Include="Assets\SimpleDialogues\Examples\Scripts\DialogueInteraction.cs" />
+     <Compile Include="Assets\SimpleDialogues\Scripts\Dialogues.cs" />
+     <Compile Include="Assets\SimpleDialogues\Scripts\DialoguesNestedClasses.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\AnchorTester.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\CurrentGlitches.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\Extensions\FloatExtensions.cs" />
@@ -92,6 +99,20 @@
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\Utils\Extensions\TSTTransformExtensions.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\Utils\TSTIHasRectTransform.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\Utils\TSTRefVal.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\DialogueRunner.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\CameraFollow.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\ExampleDialogueUI.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\ExampleVariableStorage.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\MobileOnly.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\NPC.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\PlayerCharacter.cs" />
+     <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\SpriteSwitcher.cs" />
+     <None Include="Assets\YarnSpinner\Examples\DemoAssets\Space\Ship.yarn.txt" />
+     <None Include="Assets\YarnSpinner\Examples\DemoAssets\SimpleExampleScript.yarn.txt" />
+     <None Include="Assets\YarnSpinner\Examples\DemoAssets\Space\Sally.yarn.txt" />
+     <None Include="Assets\YarnSpinner\README.txt" />
+     <None Include="Assets\Resources\Fonts\source-sans-pro\SIL Open Font License.txt" />
+     <None Include="Assets\Resources\Fonts\orion_pax\Font License.txt" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -112,6 +133,18 @@
  </Reference>
  <Reference Include="UnityEngine.VR">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+ </Reference>
+ <Reference Include="Antlr4.Runtime.Standard">
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/Antlr4.Runtime.Standard.dll</HintPath>
+ </Reference>
+ <Reference Include="CsvHelper">
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/CsvHelper.dll</HintPath>
+ </Reference>
+ <Reference Include="Newtonsoft.Json">
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/Newtonsoft.Json.dll</HintPath>
+ </Reference>
+ <Reference Include="YarnSpinner">
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/YarnSpinner.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

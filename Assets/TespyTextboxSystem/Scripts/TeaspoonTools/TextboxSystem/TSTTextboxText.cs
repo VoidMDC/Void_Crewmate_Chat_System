@@ -152,6 +152,12 @@ namespace TeaspoonTools.TextboxSystem
 			textDisplayer.textToDisplay = new List<string>() {textToShow};
 			textDisplayer.DisplayText ();
 		}
+			
+		public void StartShowingText(List<string> textToShow)
+		{
+			textDisplayer.textToDisplay = textToShow;
+			textDisplayer.DisplayText ();
+		}
 
 		void SubscribeToEvents()
 		{
