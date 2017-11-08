@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
@@ -18,30 +19,39 @@ namespace TeaspoonTools.TextboxSystem
 	/// 
 	/// Handles the process of text-parsing and text-displaying.
 	/// </summary>
-    public class TextboxText : Text, ITextboxComponent, IHasRectTransform
+    public class TextboxText : Text, IHasRectTransform
     {
 		// events
-        public event EventHandler TimeToClose;
+		[HideInInspector]
+		public UnityEvent StartedDisplayingText = new UnityEvent();
+		[HideInInspector]
+		public UnityEvent DoneDisplayingText = new UnityEvent();
 
 		// basic aspects
 		new public RectTransform rectTransform { get; protected set; }
 
-		public float width { get { return rectTransform.rect.width; } 
-			set { rectTransform.sizeDelta = new Vector2 (value, rectTransform.sizeDelta.y); }}
+		public float width 
+		{ 
+			get { return rectTransform.rect.width; } 
+			set { rectTransform.sizeDelta = new Vector2 (value, rectTransform.sizeDelta.y); }
+		}
 		
-		public float height { get { return rectTransform.rect.height; } 
-			set { rectTransform.sizeDelta = new Vector2 (rectTransform.sizeDelta.x, value); }}
+		public float height 
+		{ 
+			get { return rectTransform.rect.height; } 
+			set { rectTransform.sizeDelta = new Vector2 (rectTransform.sizeDelta.x, value); }
+		}
 		
 		// textbox controller and fields borrowed from it
-		public TextboxController textboxController { get; protected set; }
-		string textToDisplay { get { return textboxController.textToDisplay; } }
-		TextSettings textSettings { get { return textboxController.textSettings; } }
-		AudioSource sfxPlayer { get { return textboxController.sfxPlayer; } }
+		protected TextboxController textboxController { get; set; }
+		protected TextSettings textSettings { get { return textboxController.textSettings; } }
+		protected string textToDisplay { get { return textboxController.textToDisplay; } }
+		protected AudioSource sfxPlayer { get { return textboxController.sfxPlayer; } }
 
         // submodules
 		TextSpeedSettings textSpeedSettings;
 		TextDisplayer textDisplayer;
-		TSTTextParser textParser;
+		TSTTextWrapper textWrapper;
 
 		// debug stuff
         public List<string> boxfuls
@@ -50,8 +60,12 @@ namespace TeaspoonTools.TextboxSystem
             private set { textboxController.boxfuls = value; }
         }
 			
-		bool queuedToShowText = false;
-		bool readyToShowText = false;
+		protected override void Awake()
+		{
+			base.Awake ();
+			rectTransform = GetComponent<RectTransform> ();
+
+		}
 
         public void Initialize(TextboxController tbController, bool showTextImmediately = true)
         {
@@ -59,16 +73,14 @@ namespace TeaspoonTools.TextboxSystem
 
 			InitializeBasicAttributes ();
 			InitializeSubmodules ();
-			GetTextParsed ();
-			SubscribeToEvents ();
-			//StartCoroutine(GetTextParsedCoroutine());
+			WrapText (textboxController.textToDisplay);
 
-			if (showTextImmediately) {
-				StartShowingText ();
-				//StartCoroutine(StartShowingTextCoroutine());
-			}
+			SubscribeToEvents ();
+
+			if (showTextImmediately) 
+				DisplayText (textboxController.textToDisplay);
 			
-            
+
         }
 
 		/// <summary>
@@ -76,93 +88,81 @@ namespace TeaspoonTools.TextboxSystem
 		/// </summary>
 		/// <param name="sender">Sender.</param>
 		/// <param name="e">E.</param>
-		void OnDoneDisplayingText(object sender, EventArgs e)
-		{
 			
-			if (TimeToClose != null) {
-				TimeToClose (this, new EventArgs ());
-				textboxController.DoneDisplayingText.Invoke ();
-			}
-		}
-
-		void OnDoneParsingText(object sender, EventArgs e)
-		{
-			boxfuls = textParser.parsedText;
-			readyToShowText = true;
-		}
-
 		void InitializeBasicAttributes()
 		{
-			rectTransform = GetComponent<RectTransform> ();
+			
 			ApplyTextSettings ();
 		}
 
 		void ApplyTextSettings()
 		{
-			this.fontSize = textSettings.fontSize;
-			this.font = textSettings.font;
+			this.fontSize = 			textSettings.fontSize;
+			this.font = 				textSettings.font;
 
 			// the word-wrapping will be handled by the text parser
-			this.horizontalOverflow = HorizontalWrapMode.Overflow;
-			this.verticalOverflow = VerticalWrapMode.Overflow;
+			this.horizontalOverflow = 	HorizontalWrapMode.Overflow;
+			this.verticalOverflow = 	VerticalWrapMode.Overflow;
 		}
 
 		void InitializeSubmodules()
 		{
-			textSpeedSettings = new TextSpeedSettings (textSettings.textSpeed, textSettings.higherTextSpeed);
-			textParser = new TSTTextParser(this, textToDisplay, textSettings.linesPerTextbox);
-			textDisplayer = new TextDisplayer (this, textParser.parsedText, textSpeedSettings, sfxPlayer, textSettings.audioSample);
+			textSpeedSettings = 	new TextSpeedSettings (textSettings.textSpeed, textSettings.higherTextSpeed);
+			textWrapper = 			new TSTTextWrapper(this, textSettings.linesPerTextbox);
+			textDisplayer =	 		new TextDisplayer (this, textWrapper.wrappedText, textSpeedSettings, sfxPlayer, 
+														textSettings.audioSample);
 		}
 			
-		void GetTextParsed()
+		IList<string> WrapText(string textToWrap)
 		{
-			textParser.ParseText ();
-			boxfuls = textParser.parsedText;
+			// arranges the passed text into chunks that can be neatly displayed in this text field
+			// if nothing is passed, the textbox controller's textToDisplay is wrapped.
+			// Returns the result.
+			IList<string> result =	textWrapper.WrapText (textToWrap);
+			return result;
 		}
 
-		IEnumerator GetTextParsedCoroutine()
+		IList<string> WrapText(IList<string> textToWrap)
 		{
-			StartCoroutine (textParser.ParseTextCoroutine ());
-			yield break;
-		}
+			/*
+			 * The passed text to wrap may be prewrapped by a TextWrapper object from outside,
+			 * but this function makes sure that it's wrapped just right for this text field.
+			 */ 
 
-		public IEnumerator StartShowingTextCoroutine()
-		{
+			IList<string> result = new List<string> ();
 
-			while (true){
-				if (readyToShowText) {
-					textDisplayer.textToDisplay = textParser.parsedText;
-					textDisplayer.DisplayText ();
-
-				}
-				yield return null;
-			}
-		}
-
-		public void StartShowingText()
-		{
+			for (int i = 0; i < textToWrap.Count; i++)
+				result.AddRange (textWrapper.WrapText (textToWrap[i]));
 			
-			textDisplayer.textToDisplay = textParser.parsedText;
-			textDisplayer.DisplayText ();
 
+			return result;
 		}
 
-		public void StartShowingText(string textToShow)
+
+		public void DisplayText(string textToDisplay)
 		{
-			textDisplayer.textToDisplay = new List<string>() {textToShow};
-			textDisplayer.DisplayText ();
+			IList<string> readyToDisplay = WrapText(textToDisplay) as List<string>;
+
+			textDisplayer.DisplayText (readyToDisplay);
+
 		}
+
+		public void DisplayText(IList<string> textToDisplay)
+		{
+			if (boxfuls == null)
+				boxfuls = new List<string> ();
 			
-		public void StartShowingText(List<string> textToShow)
-		{
-			textDisplayer.textToDisplay = textToShow;
+			foreach (string text in textToDisplay) 
+				boxfuls.AddRange (WrapText (text));
+
+			textDisplayer.textToDisplay = boxfuls;
 			textDisplayer.DisplayText ();
+			
 		}
 
 		void SubscribeToEvents()
 		{
-			textDisplayer.DoneDisplayingText += OnDoneDisplayingText;
-			textParser.DoneParsingText += OnDoneParsingText;
+			textDisplayer.DoneDisplayingText.AddListener (DoneDisplayingText.Invoke);
 		}
 
 	}

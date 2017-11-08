@@ -44,8 +44,8 @@ namespace Yarn.Unity
     [AddComponentMenu("Scripts/Yarn Spinner/Dialogue Runner")]
     public class DialogueRunner : MonoBehaviour
     {
+        public bool paused = false;
 
-		public bool paused = false;
         /// The JSON files to load the conversation from
         public TextAsset[] sourceText;
 
@@ -199,6 +199,7 @@ namespace Yarn.Unity
         /// Start the dialogue from a given node
         public void StartDialogue (string startNode)
         {
+
             // Stop any processes that might be running already
             StopAllCoroutines ();
             dialogueUI.StopAllCoroutines ();
@@ -217,49 +218,43 @@ namespace Yarn.Unity
 
             // Get lines, options and commands from the Dialogue object,
             // one at a time.
-            foreach (Yarn.Dialogue.RunnerResult step in dialogue.Run(startNode)) 
-			{
+            foreach (Yarn.Dialogue.RunnerResult step in dialogue.Run(startNode))
+            {
+                while (paused)
+                    yield return null;
 
-				while (paused)
-					yield return null;
-
-                if (step is Yarn.Dialogue.LineResult) 
-				{
-
+                if (step is Yarn.Dialogue.LineResult)
+                {
                     // Wait for line to finish displaying
                     var lineResult = step as Yarn.Dialogue.LineResult;
                     yield return StartCoroutine (this.dialogueUI.RunLine (lineResult.line));
 
-                } 
-				else if (step is Yarn.Dialogue.OptionSetResult) 
-				{
-
+                }
+                else if (step is Yarn.Dialogue.OptionSetResult)
+                {
                     // Wait for user to finish picking an option
                     var optionSetResult = step as Yarn.Dialogue.OptionSetResult;
                     yield return StartCoroutine (
-                        this.dialogueUI.RunOptions ( optionSetResult.options,
-                        							optionSetResult.setSelectedOptionDelegate)
-												);
+                        this.dialogueUI.RunOptions (
+                        optionSetResult.options,
+                        optionSetResult.setSelectedOptionDelegate
+                    ));
 
-                } 
-				else if (step is Yarn.Dialogue.CommandResult) 
-				{
-
+                }
+                else if (step is Yarn.Dialogue.CommandResult)
+                {
                     // Wait for command to finish running
-
                     var commandResult = step as Yarn.Dialogue.CommandResult;
 
                     if (DispatchCommand(commandResult.command.text) == true) {
                         // command was dispatched
-                    } else 
+                    }
+                    else 
                         yield return StartCoroutine (this.dialogueUI.RunCommand (commandResult.command));
                     
-
-
-                } 
-				else if(step is Yarn.Dialogue.NodeCompleteResult) 
-				{
-
+                }
+                else if (step is Yarn.Dialogue.NodeCompleteResult)
+                {
                     // Wait for post-node action
                     var nodeResult = step as Yarn.Dialogue.NodeCompleteResult;
                     yield return StartCoroutine (this.dialogueUI.NodeComplete (nodeResult.nextNode));

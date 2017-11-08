@@ -1,10 +1,8 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\SimpleDialogues\Scripts\Editor\DialogueSystem.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\YarnSpinner\Code\Analyser.cs">
     <Files>
-      <File FileName="Assets\SimpleDialogues\Scripts\DialoguesNestedClasses.cs" Line="32" Column="6" />
-      <File FileName="Assets\SimpleDialogues\Scripts\Dialogues.cs" Line="1" Column="1" />
-      <File FileName="Assets\SimpleDialogues\Scripts\Editor\DialogueSystem.cs" Line="889" Column="3" />
+      <File FileName="Assets\YarnSpinner\Code\Analyser.cs" Line="17" Column="10" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

@@ -11,7 +11,7 @@ namespace TeaspoonTools.TextboxSystem
     {
 
     }
-    public class TextboxBox : Image, ITextboxComponent
+    public class TextboxBox : Image
     {
         /*
          * A helper script for TextboxController, this is meant to be attached to
@@ -20,8 +20,7 @@ namespace TeaspoonTools.TextboxSystem
 
 		new public RectTransform rectTransform { get; protected set;}
 		public TextboxController textboxController { get; protected set; }
-        public TextboxText textboxText { get { return textboxController.textboxText; } }
-
+        
 		public float height
 		{
 			get
@@ -43,12 +42,16 @@ namespace TeaspoonTools.TextboxSystem
 				rectTransform.SetWidth (value);
 			}
 		}
-			
+
+		void Awake()
+		{
+			rectTransform = GetComponent<RectTransform> ();
+		}
 
         public virtual void Initialize(TextboxController tbController)
         {
             textboxController = tbController;
-			rectTransform = gameObject.GetComponent<RectTransform> ();
+			
 			if (rectTransform == null)
 				Debug.LogWarning (this.name + " has a null rect trans!");
         }

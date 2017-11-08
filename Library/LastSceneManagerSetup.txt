@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/TespyTextboxSystem/Resources/Scenes/TSTSScene1.unity
+- path: Assets/Resources/Scenes/ParserTest.unity
   isLoaded: 1
   isActive: 1

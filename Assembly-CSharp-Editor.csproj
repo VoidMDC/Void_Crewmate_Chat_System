@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{10E6B7D5-5D49-F106-91F8-332307F7D70B}</ProjectGuid>
+    <ProjectGuid>{16973F0C-DE91-C7C3-5679-E92634984EBD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor</AssemblyName>
@@ -46,7 +46,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\SimpleDialogues\Scripts\Editor\DialogueSystem.cs" />
      <Compile Include="Assets\YarnSpinner\Code\Editor\YarnSpinnerEditorWindow.cs" />
      <Compile Include="Assets\YarnSpinner\Code\Editor\YarnSpinnerTests.cs" />
      <None Include="Assets\YarnSpinner\Examples\DemoAssets\Space\Ship.yarn.txt" />
@@ -125,16 +124,13 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
  </Reference>
  <Reference Include="Antlr4.Runtime.Standard">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/Antlr4.Runtime.Standard.dll</HintPath>
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/Void_Crewmate_Chat_System/Assets/YarnSpinner/Code/Antlr4.Runtime.Standard.dll</HintPath>
  </Reference>
  <Reference Include="CsvHelper">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/CsvHelper.dll</HintPath>
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/Void_Crewmate_Chat_System/Assets/YarnSpinner/Code/CsvHelper.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/Newtonsoft.Json.dll</HintPath>
- </Reference>
- <Reference Include="YarnSpinner">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/YarnSpinner.dll</HintPath>
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/Void_Crewmate_Chat_System/Assets/YarnSpinner/Code/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -145,7 +141,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp.csproj">
-      <Project>{CB7E511E-3E17-3FF8-DC82-E8E6A739EBAC}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
+      <Project>{C19ED8D2-BB21-7687-4BDD-EB68D8E0F090}</Project>      <Name>Assembly-CSharp</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

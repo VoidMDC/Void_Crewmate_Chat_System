@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TeaspoonTools.TextboxSystem;
 
@@ -13,19 +14,16 @@ namespace TeaspoonTools.TextboxSystem.Utils
 	/// </summary>
 	public class TextDisplayer
 	{
-		public event EventHandler DoneDisplayingText;
-		public List<string> textToDisplay { get; set; }
-		public Text textField;
-		public AudioSource sfxPlayer;
-		public AudioClip textSound;
-		public TextSpeedSettings textSpeedSettings;
+		public UnityEvent StartedDisplayingText = new UnityEvent();
+		public UnityEvent DoneDisplayingText = new UnityEvent();
+
+		public IList<string> textToDisplay { get; set; }
+		Text textField;
+		AudioSource sfxPlayer;
+		AudioClip textSound;
+		TextSpeedSettings textSpeedSettings;
 
 		bool showingText = false;
-
-		public TextDisplayer()
-		{
-
-		}
 
 		public TextDisplayer(Text textField, ICollection textToDisplay,
 							 TextSpeedSettings textSpeedSettings, AudioSource sfxPlayer, 
@@ -40,7 +38,19 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 		public void DisplayText()
 		{
-			if (!showingText) {
+			if (!showingText) 
+			{
+				textField.StartCoroutine (ShowText ());
+				showingText = true;
+			}
+		}
+
+		public void DisplayText(IList<string> textToDisplay)
+		{
+			this.textToDisplay = textToDisplay;
+
+			if (!showingText) 
+			{
 				textField.StartCoroutine (ShowText ());
 				showingText = true;
 			}
@@ -48,6 +58,8 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 		IEnumerator ShowText()
 		{
+			StartedDisplayingText.Invoke ();
+
 			string currentBoxful = "";
 
 			int boxfulsToGoThrough = textToDisplay.Count;
@@ -62,7 +74,8 @@ namespace TeaspoonTools.TextboxSystem.Utils
 				yield return textField.StartCoroutine(WaitForUserInput());
 			}
 
-			DoneDisplayingText (this, null);
+			//DoneDisplayingText (this, null);
+			DoneDisplayingText.Invoke();
 			showingText = false;
 
 		}
@@ -80,12 +93,11 @@ namespace TeaspoonTools.TextboxSystem.Utils
 
 			// Update: Apparently the time delay is no longer necessary, at least in Unity 5.6.2f1.
 
-			int charsToGoThrough = boxful.Length;
 			IEnumerator playSoundByte = PlaySoundByte(pauseDuration);
 
 			textField.StartCoroutine(playSoundByte);
 
-			for (int j = 0; j < charsToGoThrough; j++)
+			for (int j = 0; j < boxful.Length; j++)
 			{
 				SetScrollingSpeed(ref pauseDuration, timeWaited < timeDelay);
 
@@ -99,9 +111,8 @@ namespace TeaspoonTools.TextboxSystem.Utils
 					break;
 				}
 				else 
-					textField.text += boxful[j];
+					textField.text = string.Concat(textField.text, boxful[j]);
 
-				//sfxPlayer.PlayOneShot(textSettings.audioSample, 0.25f);
 				timeWaited += pauseDuration;
 				yield return new WaitForSeconds(pauseDuration);
 
@@ -141,11 +152,15 @@ namespace TeaspoonTools.TextboxSystem.Utils
 			// helper function for ShowText(), this subcoroutine finishes when the player
 			// gives the proper input.
 
-			while (!Input.GetKeyDown(KeyCode.W))
+			bool progressTheText = Input.GetKeyDown(KeyCode.W) || Input.GetMouseButtonDown(0);
+			while (!progressTheText)
 			{
 				//Debug.Log("Waiting for player input.");
+				progressTheText = Input.GetKeyDown(KeyCode.W) || Input.GetMouseButtonDown(0);
 				yield return null;
 			}
+
+			
 		}
 
 		void SetScrollingSpeed(ref float pauseDuration, bool waitedLongEnough = false)
@@ -156,9 +171,9 @@ namespace TeaspoonTools.TextboxSystem.Utils
              * for that textbox are displayed instantly.
              */
 
-			if (!waitedLongEnough && Input.GetKey(KeyCode.W))
+			if (!waitedLongEnough && (Input.GetKey(KeyCode.W) || Input.GetMouseButton(0)) )
 				RaiseScrollingSpeed(ref pauseDuration, waitedLongEnough);
-			else if (waitedLongEnough && Input.GetKeyDown(KeyCode.W))
+			else if (waitedLongEnough && (Input.GetKey(KeyCode.W) || Input.GetMouseButton(0)) )
 				RaiseScrollingSpeed(ref pauseDuration, waitedLongEnough);
 			else
 				NormalizeScrollingSpeed(ref pauseDuration);

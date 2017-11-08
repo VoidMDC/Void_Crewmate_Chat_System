@@ -13,6 +13,10 @@ namespace TeaspoonTools.TextboxSystem
     {
         TextboxController textboxController;
 
+		public void Initialize(TextboxController tbController)
+		{
+			textboxController = tbController;
+		}
 
     }
 }

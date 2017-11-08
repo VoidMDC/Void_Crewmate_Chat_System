@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{CB7E511E-3E17-3FF8-DC82-E8E6A739EBAC}</ProjectGuid>
+    <ProjectGuid>{C19ED8D2-BB21-7687-4BDD-EB68D8E0F090}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,19 +46,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Resources\Scripts\Dialogue.cs" />
-     <Compile Include="Assets\Resources\Scripts\DialogueChain.cs" />
-     <Compile Include="Assets\Resources\Scripts\DialogueChainController.cs" />
-     <Compile Include="Assets\Resources\Scripts\DialogueTrigger.cs" />
-     <Compile Include="Assets\Resources\Scripts\SegmentDisplayer.cs" />
-     <Compile Include="Assets\Resources\Scripts\SegmentReader.cs" />
-     <Compile Include="Assets\Scripts\CommandTester.cs" />
-     <Compile Include="Assets\Scripts\DialogueUITest.cs" />
-     <Compile Include="Assets\Scripts\OptionSetController.cs" />
-     <Compile Include="Assets\Scripts\ParseTester.cs" />
-     <Compile Include="Assets\SimpleDialogues\Examples\Scripts\DialogueInteraction.cs" />
-     <Compile Include="Assets\SimpleDialogues\Scripts\Dialogues.cs" />
-     <Compile Include="Assets\SimpleDialogues\Scripts\DialoguesNestedClasses.cs" />
+     <Compile Include="Assets\Resources\Scripts\DialogueUITest.cs" />
+     <Compile Include="Assets\Resources\Scripts\OptionSetController.cs" />
+     <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\AnchorTester.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\CurrentGlitches.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\Extensions\FloatExtensions.cs" />
@@ -69,24 +59,22 @@
      <Compile Include="Assets\TespyTextboxSystem\Scripts\FrameRateDisplayer.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\Prefabs.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\Quit.cs" />
-     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTITextboxComponent.cs" />
-     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTSTextboxNameTag.cs" />
-     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTSpecialObjectCache.cs" />
-     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTSpecialObjects.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextSpeed.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextbox.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxBox.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxComponent.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxController.cs" />
+     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxNametag.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxPortrait.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxPrefabs.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxTester.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\TSTTextboxText.cs" />
+     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTIListExtensions.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextAdjustmentHelper.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextDisplayer.cs" />
-     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextParser.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextSettings.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextSpeedSettings.cs" />
+     <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextWrapper.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextboxAnchor.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TSTTextboxEventArgs.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\TextboxSystem\Utils\TextboxControllerSubmodules.cs" />
@@ -99,7 +87,25 @@
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\Utils\Extensions\TSTTransformExtensions.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\Utils\TSTIHasRectTransform.cs" />
      <Compile Include="Assets\TespyTextboxSystem\Scripts\TeaspoonTools\Utils\TSTRefVal.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Analyser.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\AntlrCompiler.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Compiler.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Dialogue.cs" />
      <Compile Include="Assets\YarnSpinner\Code\DialogueRunner.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\ErrorListener.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Lexer.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Library.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Loader.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Parser.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Program.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\Value.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\VirtualMachine.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\YarnSpinnerLexer.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\YarnSpinnerParser.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\YarnSpinnerParserBaseListener.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\YarnSpinnerParserBaseVisitor.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\YarnSpinnerParserListener.cs" />
+     <Compile Include="Assets\YarnSpinner\Code\YarnSpinnerParserVisitor.cs" />
      <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\CameraFollow.cs" />
      <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\ExampleDialogueUI.cs" />
      <Compile Include="Assets\YarnSpinner\Examples\DemoScripts\ExampleVariableStorage.cs" />
@@ -135,16 +141,13 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="Antlr4.Runtime.Standard">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/Antlr4.Runtime.Standard.dll</HintPath>
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/Void_Crewmate_Chat_System/Assets/YarnSpinner/Code/Antlr4.Runtime.Standard.dll</HintPath>
  </Reference>
  <Reference Include="CsvHelper">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/CsvHelper.dll</HintPath>
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/Void_Crewmate_Chat_System/Assets/YarnSpinner/Code/CsvHelper.dll</HintPath>
  </Reference>
  <Reference Include="Newtonsoft.Json">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/Newtonsoft.Json.dll</HintPath>
- </Reference>
- <Reference Include="YarnSpinner">
- <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/YarnPractice/Assets/YarnSpinner/Code/YarnSpinner.dll</HintPath>
+ <HintPath>C:/Users/CG-College/Documents/College/Classes/[CAP-2048] Game Development Project/Unity Projects/Void_Crewmate_Chat_System/Assets/YarnSpinner/Code/Newtonsoft.Json.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.iOS.Extensions.Xcode">
  <HintPath>C:/Program Files/Unity/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>

@@ -18,7 +18,8 @@ namespace TeaspoonTools.TextboxSystem.Utils
         public List<int> sizesUsed;
         public int sizeChangeStep = 2;
 		CanvasGroup canvasGroup;
-    
+		ContentSizeFitter sizeFitter;
+
         int lineLimit;
 
         public TextAdjustmentHelper(TextSettings helpee)
@@ -31,13 +32,16 @@ namespace TeaspoonTools.TextboxSystem.Utils
             sizesUsed = new List<int>();
             this.lineLimit = lineLimit;
 
-			testLabel = CreateTestLabel();
-			testLabel.name = "PrefabTestingLabel";
-			labelText = testLabel.GetComponent<Text> ();
-			labelRect = testLabel.GetComponent<RectTransform> ();
-			canvasGroup = testLabel.GetComponent<CanvasGroup> ();
+			testLabel = 		new GameObject();
+			testLabel.name = 	"PrefabTestingLabel";
+			labelText = 		testLabel.AddComponent<Text> ();
+			labelRect = 		testLabel.GetComponent<RectTransform> ();
+			canvasGroup = 		testLabel.AddComponent<CanvasGroup> ();
+			sizeFitter = 		testLabel.AddComponent<ContentSizeFitter> ();
+			sizeFitter.verticalFit = 		ContentSizeFitter.FitMode.PreferredSize;
+			sizeFitter.horizontalFit = 		ContentSizeFitter.FitMode.PreferredSize;
 
-            MakeLabelInvisible();
+			MakeLabelInvisible ();
         }
 
         public void SyncLabelText(Font font, int fontSize)
@@ -48,6 +52,7 @@ namespace TeaspoonTools.TextboxSystem.Utils
             labelText.font = font;
             labelText.fontSize = fontSize;
         }
+
         void MakeLabelInvisible()
         {
             // makes the test label invisible
@@ -55,13 +60,8 @@ namespace TeaspoonTools.TextboxSystem.Utils
             canvasGroup.interactable = false;
             canvasGroup.blocksRaycasts = false;
         }
-
-        GameObject CreateTestLabel()
-        {
-			return TSTSpecialObjects.testLabel;
-
-        }
-
+			
+			
 
     }
 }

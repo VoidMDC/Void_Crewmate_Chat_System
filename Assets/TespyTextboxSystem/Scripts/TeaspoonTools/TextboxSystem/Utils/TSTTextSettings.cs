@@ -31,8 +31,7 @@ namespace TeaspoonTools.TextboxSystem.Utils
         public bool autoFontSize = true;
 
         private TextboxController textboxController;
-        private TextboxText textboxText { get { return textboxController.textboxText; } }
-
+		TextboxText textboxText { get { return textboxController.text; } }
 
         public void Initialize(TextboxController tbText)
         {
@@ -41,12 +40,10 @@ namespace TeaspoonTools.TextboxSystem.Utils
 			if (font == null)
 				LoadDefaultFont ();
 
-            
-            adjustmentHelper = new TextAdjustmentHelper(this);
-            adjustmentHelper.Initialize(linesPerTextbox);
-            //SetInitialFontSize();
             SetHigherSpeed();
 
+			if (autoFontSize)
+				SetAutoFontSize ();
 
         }
 
@@ -60,10 +57,10 @@ namespace TeaspoonTools.TextboxSystem.Utils
 				LoadDefaultFont ();
 
             this.linesPerTextbox = linesPerTextbox;
-            adjustmentHelper = new TextAdjustmentHelper(this);
-            adjustmentHelper.Initialize(linesPerTextbox);
-
             this.textSpeed = textSpeed;
+
+			if (autoFontSize)
+				SetAutoFontSize ();
 			
             SetHigherSpeed();
 
@@ -103,80 +100,79 @@ namespace TeaspoonTools.TextboxSystem.Utils
         /// </summary>
         public void SetAutoFontSize()
         {
+
+            // set up a label prefab as a measuring stick
+			GameObject testLabel = 		CreateTestLabel();
+			Text labelText = 			testLabel.GetComponent<Text> ();
+			RectTransform labelRect = 	testLabel.GetComponent<RectTransform> ();
+
+			labelRect.SetParent (textboxController.rectTransform.parent, false);
+
+			// Using a small font size and seeing how tall the label gets with one line of
+			// text, use that to figure out a good font size for the main text field to use
+            int baseFontSize = 5;
+			labelText.fontSize = 		baseFontSize;
+			labelText.text = "A";
 			
-            // Far better than the old algorithm! Hurray for number-crunching!
-
-            // use the label prefab as a measuring stick
-			Text labelText = adjustmentHelper.labelText;
-
-			adjustmentHelper.labelRect.SetParent (textboxController.transform.parent, false);
-
-            int testFontSize = 5;
-            adjustmentHelper.SyncLabelText(font, testFontSize);
             Canvas.ForceUpdateCanvases();
+			float baseHeight = 			labelRect.rect.height;
 
-            // now applying the algorithm
-			RectTransform textRect = textboxText.GetComponent<RectTransform>();
+			//  further preparations to calculate the aforementioned good size
+			RectTransform textRect = 	textboxText.rectTransform;
+			float heightLimit = 		textRect.rect.height;
+			float targetHeightPerLine = heightLimit / linesPerTextbox;
 
-            float minSize = adjustmentHelper.labelRect.rect.height;
-            float textHeight = textRect.rect.height;
-            float targetHeight = textHeight / linesPerTextbox;
+			float linesFittable = 		Mathf.Ceil(targetHeightPerLine / baseHeight); // with the current font size
+			int resultSize = 			Mathf.FloorToInt (baseFontSize * (targetHeightPerLine / baseHeight));
 
-            float linesFittable = Mathf.Ceil(targetHeight / minSize);
-
-            int resultSize = (int)Mathf.Ceil( linesFittable * testFontSize / minSize);
-
-            // to adjust for other resolutions
-            labelText.text = "";
+			// now test that good size...
+            labelText.text = 			"";
+			labelText.fontSize = 		resultSize;
             for (int i = 0; i < linesPerTextbox - 1; i++)
                 labelText.text += "A\nA";
-
-            labelText.fontSize = resultSize;
+				            
             Canvas.ForceUpdateCanvases();
 
+			float diffInHeight = 		labelRect.rect.height - heightLimit;
+			float diffInLines = 		Mathf.Abs(diffInHeight / targetHeightPerLine); 
+			// ^lines taken up
 
-            // Sometimes, the chosen font size is too big or small after the initial
-            // number-crunch. So, the following should fix that.
-			float diff = adjustmentHelper.labelRect.rect.height - textHeight;
-            float diffInLines = Mathf.Abs(diff / targetHeight);
-            float alterationAmount;
-            int passes = 0;
+            int alterationAmount;
+            int passes = 0; // just for debugging
+			float differenceLimit = 0.1f;
 
-            while (diffInLines >= 1f)
+            while (diffInLines >= differenceLimit) // ... and change it as necessary.
             {
-                alterationAmount = Mathf.Ceil(diffInLines);
+                alterationAmount = Mathf.CeilToInt(diffInLines);
                 
-                if (diff > 0)
-                    resultSize -= (int)alterationAmount;
+				// Raise the size? Lower it?
+                if (diffInHeight > 0)
+                    resultSize -= alterationAmount;
                     
-                else if (diff < 0)
-                    resultSize += (int)alterationAmount;
+                else if (diffInHeight < 0)
+                    resultSize += alterationAmount;
                 
-                // It's a bit like in the old algorithm, where the testing label's 
-                // height is compared to the text field's height to calculate the size 
-                // more accurately. In this version, there is a lot less potential lag! 
+				// compare the text heights again for a more accurate result
                 labelText.fontSize = resultSize;
                 Canvas.ForceUpdateCanvases();
-				diff = adjustmentHelper.labelRect.rect.height - textHeight;
+				diffInHeight = labelRect.rect.height - heightLimit;
 
-                diffInLines = Mathf.Abs(diff / minSize);
+                diffInLines = Mathf.Abs(diffInHeight / baseHeight);
                 
                 passes++;
 
-                // avoid an infinite loop
+                // avoid an infinite loop, cutting our losses
                 if (passes >= linesPerTextbox * 2)
                     break;
 
             }
 
+			fontSize = resultSize;
+
 			Debug.Log ("Adjusted the font size to best fit the textbox with " + passes + " extra passes.");
-
-            fontSize = resultSize;
-
             Debug.Log("Using the simpler, better algorithm, the font size chosen is: " + resultSize);
-            textboxText.fontSize = fontSize;
-
-            // won't need this anymore
+      
+            // won't need this anymore!
 			MonoBehaviour.Destroy(labelText.gameObject);
 
         }
@@ -185,6 +181,31 @@ namespace TeaspoonTools.TextboxSystem.Utils
 		{
 			Debug.Log("Font was null! Loading default!");
 			font = Resources.Load<Font>(defaultFontPath);
+		}
+
+		GameObject CreateTestLabel()
+		{
+			// to help with the auto-font-sizing
+
+			GameObject label = new GameObject ("PrefabTestingLabel");
+			label.AddComponent<RectTransform> ();
+
+			Text labelText = label.AddComponent<Text> ();
+			labelText.text = "";
+			labelText.font = font;
+			labelText.fontSize = 5;
+
+			ContentSizeFitter sizeFitter = label.AddComponent<ContentSizeFitter> ();
+			sizeFitter.verticalFit = ContentSizeFitter.FitMode.PreferredSize;
+			sizeFitter.horizontalFit = ContentSizeFitter.FitMode.PreferredSize;
+
+			// make the label invisible
+			CanvasGroup canvasGroup = label.AddComponent<CanvasGroup> ();
+			canvasGroup.alpha = 0;
+			canvasGroup.interactable = false;
+			canvasGroup.blocksRaycasts = false;
+
+			return label;
 		}
     }
 

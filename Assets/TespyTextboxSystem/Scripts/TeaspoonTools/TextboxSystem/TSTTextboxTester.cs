@@ -42,8 +42,7 @@ namespace TeaspoonTools.TextboxSystem
             if (Input.GetKey(KeyCode.P) && !textboxIsThere)
             {
 
-                textbox = Textbox.Create(textboxPrefab, 
-                                         textToDisplay, 2);
+                textbox = Textbox.Create(textboxPrefab, 2);
                 textbox.transform.SetParent(mainCanvas.transform, false);
                 textboxController = textbox.GetComponent<TextboxController>();
 
@@ -53,7 +52,7 @@ namespace TeaspoonTools.TextboxSystem
                 else
                     textboxController.PlaceOnScreen(anchoredPos);
                 
-                textboxController.StartShowingText();
+                textboxController.DisplayText(textToDisplay);
                 
                 textboxIsThere = true;
 

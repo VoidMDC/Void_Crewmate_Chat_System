@@ -30,17 +30,15 @@ using UnityEngine.UI;
 using System.Text;
 using System.Collections.Generic;
 
-namespace Yarn.Unity.Example 
-{
+namespace Yarn.Unity.Example {
     /// Displays dialogue lines to the player, and sends
     /// user choices back to the dialogue system.
 
-    /** 
-    * Note that this is just one way of presenting the
-    * dialogue to the user. The only hard requirement
-    * is that you provide the RunLine, RunOptions, RunCommand
-    * and DialogueComplete coroutines; what they do is up to you.
-    */
+    /** Note that this is just one way of presenting the
+     * dialogue to the user. The only hard requirement
+     * is that you provide the RunLine, RunOptions, RunCommand
+     * and DialogueComplete coroutines; what they do is up to you.
+     */
     public class ExampleDialogueUI : Yarn.Unity.DialogueUIBehaviour
     {
 
@@ -80,9 +78,9 @@ namespace Yarn.Unity.Example
 
             lineText.gameObject.SetActive (false);
 
-            foreach (var button in optionButtons) 
+            foreach (var button in optionButtons) {
                 button.gameObject.SetActive (false);
-            
+            }
 
             // Hide the continue prompt if it exists
             if (continuePrompt != null)
@@ -131,10 +129,10 @@ namespace Yarn.Unity.Example
                                                 Yarn.OptionChooser optionChooser)
         {
             // Do a little bit of safety checking
-            if (optionsCollection.options.Count > optionButtons.Count) 
+            if (optionsCollection.options.Count > optionButtons.Count) {
                 Debug.LogWarning("There are more options to present than there are" +
                                  "buttons to present them in. This will cause problems.");
-            
+            }
 
             // Display each option in a button, and make it visible
             int i = 0;
@@ -148,14 +146,14 @@ namespace Yarn.Unity.Example
             SetSelectedOption = optionChooser;
 
             // Wait until the chooser has been used and then removed (see SetOption below)
-            while (SetSelectedOption != null) 
+            while (SetSelectedOption != null) {
                 yield return null;
-            
+            }
 
             // Hide all the buttons
-            foreach (var button in optionButtons) 
+            foreach (var button in optionButtons) {
                 button.gameObject.SetActive (false);
-            
+            }
         }
 
         /// Called by buttons to make a selection.

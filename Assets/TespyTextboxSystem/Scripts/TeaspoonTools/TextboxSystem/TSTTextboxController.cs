@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using UnityEngine.Events;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,15 +16,35 @@ namespace TeaspoonTools.TextboxSystem
 
     }
 
+	[System.Serializable]
+	class ControllerComponents
+	{
+
+		public TextboxBox textboxBox;
+
+		public TextboxText textboxText;
+
+		public TextboxPortrait textboxPortrait;
+
+		public TextboxNametag nameTag;
+
+		public TextSettings textSettings;
+	}
+
     public class TextboxController : MonoBehaviour, IHasRectTransform
     {
         // events
-        public event EventHandler<Utils.TextboxEventArgs> StartedShowingText;
-		public UnityEvent DoneDisplayingText = new UnityEvent ();
-		public bool isDisplayingText = true;
+		[HideInInspector]
+		public UnityEvent StartedShowingText = new UnityEvent();
+		[HideInInspector]
+		public UnityEvent DoneDisplayingText = new UnityEvent();
 
         // basic attributes
-		public RectTransform rectTransform { get; protected set; }
+		[HideInInspector]
+		public RectTransform rectTransform { get; set; }
+		[HideInInspector]
+		public RectTransform TSTSAnchor;
+
 		public AudioSource sfxPlayer 
 		{
 			get {
@@ -41,129 +61,198 @@ namespace TeaspoonTools.TextboxSystem
 
 			}
 		}
+			
+		[SerializeField]
+		ControllerComponents controllerComponents;
 
-		bool isClosing = false;
+		// properties to interface with those components
+		public TextSettings textSettings 
+		{
+			get { return controllerComponents.textSettings; } 
+			private set { controllerComponents.textSettings = value; }
+		}
 
-		// submodules
-		public TextboxControllerSubmodules controllerComponents;
+		public TextboxText text
+		{
+			get { return controllerComponents.textboxText; }
+			private set {controllerComponents.textboxText = value;}
+		}
 
-		public TextboxBox textboxBox;
-		public TextboxText textboxText;
-		public TextboxPortrait textboxPortrait;
-		public TSTSTextboxNameTag nameTag;
-		public TextSettings textSettings;
+		public TextboxBox box
+		{
+			get { return controllerComponents.textboxBox; }
+			private set {controllerComponents.textboxBox = value;}
+		}
 
+		public TextboxPortrait portrait
+		{
+			get { return controllerComponents.textboxPortrait; }
+			private set { controllerComponents.textboxPortrait = value; }
+		}
 
-		// for debugging
+		public TextboxNametag nameTag 
+		{
+			get { return controllerComponents.nameTag; }
+			protected set { controllerComponents.nameTag = value; }
+		}
+					
+		public Sprite boxGraphic
+		{
+			get { return box.sprite; }
+			set { box.sprite = value; }
+		}
+
+		public Sprite nameTagGraphic 
+		{
+			get 
+			{ 
+				if (nameTag == null) 
+				{
+					Debug.Log (this.name + " has no TSTNameTag component to get the graphic of.");
+					return null;
+				}
+				return nameTag.sprite; 
+			}
+			set 
+			{ 
+				if (nameTag == null) 
+				{
+					Debug.Log (this.name + " has no TSTNameTag component to set the graphic of.");
+					return;
+				}
+				nameTag.sprite = value; 
+			}
+		}
+
+		public string nameTagText
+		{
+			get 
+			{ 
+				if (nameTag == null) 
+				{
+					Debug.Log (this.name + " has no TSTNameTag component to get the text of.");
+					return null;
+				}
+				return nameTag.text; 
+			}
+			set 
+			{ 
+				if (nameTag == null) 
+				{
+					Debug.Log (this.name + " has no TSTNameTag component to set the text of.");
+					return;
+				}
+				nameTag.text = value; 
+			}
+		}
+					
+		public Sprite portraitSprite
+		{
+			get 
+			{ 
+				if (portrait == null) 
+				{
+					Debug.Log (this.name + " has no TextboxPortrait component to get the graphic of.");
+					return null;
+				}
+				return portrait.sprite; 
+			}
+			set 
+			{ 
+				if (portrait == null) 
+				{
+					Debug.Log (this.name + " has no TextboxPortrait component to set the graphic of.");
+					return;
+				}
+				portrait.sprite = value; 
+			}
+		}
+				
+		public Font font
+		{
+			get { return textSettings.font; }
+			set 
+			{ 
+				textSettings.font = value;
+				text.font = value;
+
+                if (nameTag != null)
+                    nameTag.font = value;
+			}
+		}
+
+		public int fontSize
+		{
+			get { return textSettings.fontSize; }
+			set 
+			{
+				textSettings.fontSize = value;
+				text.fontSize = value;
+			}
+		}
+			
+
+		[Header("For Debugging")] 
 		public string textToDisplay;
 		public List<string> boxfuls;
 
-        public bool testing = false;
-
-		public string nameTagText {
-
-			get { return nameTag.name; }
-			set { nameTag.name = value; }
-		}
-
-		private void Awake()
+		[SerializeField]
+        private bool testing = false;
+        
+		void Awake()
 		{
-			DoneDisplayingText.AddListener (OnDoneDisplayingText);
+			rectTransform = GetComponent<RectTransform> ();
 		}
 
         private void Start()
 		{
             if (testing)
-                InitializeForTesting();
+                Initialize();
 
         }
         
-		void InitializeForTesting()
+		void Initialize()
         {
-			InitializeBasicAttributes (textToDisplay, textSettings.textSpeed, textSettings.linesPerTextbox);
-			InitializeSubmodulesForTesting (textToDisplay, textSettings.textSpeed, textSettings.linesPerTextbox);
+			// for testing
+			InitializeSubmodules (textSettings.textSpeed, textSettings.linesPerTextbox);
 
 			AlignSizeToBox();
             SubscribeToEvents();
+            SetupCallbacks();
 
         }
 
-		void OnDoneDisplayingText()
-		{
-			isDisplayingText = false;
-		}
-
-        public void Initialize(string textToDisplay, TextSpeed textSpeed,
-                               int linesPerTextbox)
+        public void Initialize(TextSpeed textSpeed, int linesPerTextbox)
         {
-
-			InitializeBasicAttributes (textToDisplay, textSpeed, linesPerTextbox);
-			InitializeSubmodules (textToDisplay, textSpeed, linesPerTextbox);
-
-
+			InitializeSubmodules ( textSpeed, linesPerTextbox);
 			AlignSizeToBox();
-			SubscribeToEvents();
-
+            SubscribeToEvents();
+            SetupCallbacks();
         }
-        
-		void InitializeBasicAttributes(string textToDisplay, TextSpeed textSpeed, int linesPerTextbox)
-		{
-			rectTransform = GetComponent<RectTransform>();
-			this.textToDisplay = textToDisplay;
-		}
-			
-		void InitializeSubmodules(string textToDisplay, TextSpeed textSpeed, int linesPerTextbox)
+    
+		void InitializeSubmodules(TextSpeed textSpeed, int linesPerTextbox)
 		{
 			textSettings.Initialize(this, textSpeed, linesPerTextbox);
 			textSettings.SetAutoFontSize();
-			textboxBox.Initialize(this);
-			textboxText.Initialize(this, false);
+			box.Initialize(this);
+			text.Initialize(this, testing);
 
-		}
+            // Not all textboxes will need portraits or nametags, hence the safety-checking here
+            if (nameTag != null)
+            {
+                nameTag.Initialize(this);
+                nameTag.font = font;
+            }
+			if (portrait != null)
+				portrait.Initialize (this);
 
-		void InitializeSubmodulesForTesting(string textToDisplay, TextSpeed textSpeed, int linesPerTextbox)
-		{
-			textSettings.Initialize(this);
-			textSettings.SetAutoFontSize();
-			textboxBox.Initialize(this);
-			textboxText.Initialize(this, true);
+
 		}
 			
         void AlignSizeToBox()
-        {
-            rectTransform.sizeDelta = textboxBox.rectTransform.sizeDelta;
+		{
+            rectTransform.sizeDelta = box.rectTransform.sizeDelta;
         }
-			
-        public void StartShowingText()
-        {
-			isDisplayingText = true;
-            textboxText.StartShowingText();
-			//StartCoroutine(textboxText.StartShowingTextCoroutine());
-
-			if (StartedShowingText != null)
-            	StartedShowingText(this, new Utils.TextboxEventArgs(this));
-        }
-
-		public void StartShowingText(string textToShow)
-		{
-			isDisplayingText = true;
-			textboxText.StartShowingText (textToShow);
-
-		}
-
-		public void StartShowingText(List<string> textToShow)
-		{
-			isDisplayingText = true;
-			textboxText.StartShowingText (textToShow);
-		}
-
-		public void Close()
-		{
-			if (!isClosing) {
-				isClosing = true;
-				StartCoroutine (CloseCoroutine ());
-			}
-		}
 
         /// <summary>
         ///  Places a textbox on screen based on the anchor passed. Works off viewport coords.
@@ -172,7 +261,6 @@ namespace TeaspoonTools.TextboxSystem
 		public void PlaceOnScreen(TextboxAnchor anchorOnScreen, bool stayInBounds = true)
         {
 			rectTransform.PositionRelativeToParent(anchorOnScreen.ToVector2(), stayInBounds);
-			//rectTransform.ApplyAnchorPresetRecursively(anchorOnScreen.ToTextAnchor(), true, true);
         }
 
 		public void PlaceOnScreen(Vector2 anchorOnScreen, bool stayInBounds = true)
@@ -180,22 +268,29 @@ namespace TeaspoonTools.TextboxSystem
 			rectTransform.PositionRelativeToParent (anchorOnScreen, stayInBounds);
 		}
 
-        void SubscribeToEvents()
+        public void Close()
         {
-            textboxText.TimeToClose += this.OnTimeToClose;
+            StartCoroutine(CloseSelf());
         }
+	
+		#region To interface with the submodules
 
-		public void ChangePortrait(Sprite newPortrait)
+		public void DisplayText(string textToDisplay)
 		{
-			textboxPortrait.sprite = newPortrait;
+			StartedShowingText.Invoke ();
+			this.textToDisplay = textToDisplay;
+			text.DisplayText (textToDisplay);
 		}
 
-        void OnTimeToClose(object sender, EventArgs args)
-        {
-            //StartCoroutine(Close());
-        }
+		public void DisplayText(IList<string> textToDisplay)
+		{
+			StartedShowingText.Invoke ();
+			text.DisplayText (textToDisplay);
+		}
+						
+		#endregion
 
-        IEnumerator CloseCoroutine()
+        IEnumerator CloseSelf()
         {
             // squishes this textbox into nonexistence
             //yield return null;
@@ -211,8 +306,7 @@ namespace TeaspoonTools.TextboxSystem
                 yield return new WaitForSeconds(pauseDuration);
             }
 
-            textboxText.TimeToClose -= OnTimeToClose;
-			isClosing = false;
+            
             Destroy(this.gameObject);
         }
 
@@ -221,6 +315,34 @@ namespace TeaspoonTools.TextboxSystem
 			Debug.Log (this.name + " has been destroyed!");
 			Textbox.textboxesOnScreen--;
 		}
-    }
+    
+		void SetupSystemAnchor()
+		{
+			// the anchor for things made by this textbox system
+			GameObject anchor = GameObject.Find ("TSTSCanvas");
+
+			if (anchor == null) 
+			{
+				anchor = new GameObject ("TSTSCanvas");
+				TSTSAnchor = anchor.AddComponent<RectTransform> ();
+				anchor.transform.position = Camera.main.transform.position;
+				anchor.AddComponent<Canvas> ();
+			} 
+			else
+				TSTSAnchor = anchor.GetComponent<RectTransform> ();
+
+		}
+	
+		void SubscribeToEvents()
+		{
+			text.DoneDisplayingText.AddListener (DoneDisplayingText.Invoke);
+            
+		}
+
+        void SetupCallbacks()
+        {
+            DoneDisplayingText.AddListener(() => Debug.Log(this.name + ": done displaying text!"));
+        }
+	}
 
 }
