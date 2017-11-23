@@ -1,0 +1,47 @@
+<nodes>
+	<node>
+		<title>Start</title>
+		<tags></tags>
+		<body>Morning, Captain. You need something?[[I have a few questions to ask.|AskQuestions]]
+
+
+
+
+</body>
+		<position x="-273" y="-31"></position>
+		<colorID>0</colorID>
+	</node>
+	<node>
+		<title>AskQuestions</title>
+		<tags></tags>
+		<body>It's about the murder, right? Have you found anything interesting?[[Possibly. How are you holding up?|PilotFeeling]]
+[[Never mind. I'll ask later.|Leave]]
+
+
+
+
+</body>
+		<position x="160" y="160"></position>
+		<colorID>0</colorID>
+	</node>
+	<node>
+		<title>Leave</title>
+		<tags></tags>
+		<body>All right. Well, hit me up if you need to ask anything.
+
+
+</body>
+		<position x="-227" y="322"></position>
+		<colorID>0</colorID>
+	</node>
+	<node>
+		<title>PilotFeeling</title>
+		<tags></tags>
+		<body>I feel terrible.
+
+
+</body>
+		<position x="576" y="118"></position>
+		<colorID>0</colorID>
+	</node>
+</nodes>

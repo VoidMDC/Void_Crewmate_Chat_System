@@ -1,0 +1,126 @@
+<nodes>
+	<node>
+		<title>ChickenAlfredo</title>
+		<tags></tags>
+		<body><<set $foodChosen to "chicken alfredo">>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+<<if $foodChosen is "chicken alfredo">>
+    All right, one chicken alfredo, coming right up.
+<<endif>>
+<<if $foodChosen is "miso soup">>
+    All right, one miso soup, coming right up.
+<<endif>>
+<</Textbox>>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+... Here you go. One chicken alfredo.
+<</Textbox>>
+
+<<Textbox>>
+<<name|First Mate>>
+<<portrait|hajime>>
+Thanks!
+<</Textbox>>
+
+[[Time to eat!|Eat]]</body>
+		<position x="350" y="31"></position>
+		<colorID>0</colorID>
+	</node>
+	<node>
+		<title>crewmateChatStart</title>
+		<tags></tags>
+		<body><<Textbox>>
+<<name|First Mate>>
+<<portrait|hajime>>
+Hey.
+<</Textbox>>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+What's up?
+<</Textbox>>
+
+<<Textbox>>
+<<name|First Mate>>
+<<portrait|hajime>>
+I'm hongry.
+<</Textbox>>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+All right. What do you want?
+<</Textbox>>
+
+<<Textbox>>
+<<name|First Mate>>
+<<portrait|hajime>>
+(Hmm... What DO I want?)
+<</Textbox>>
+
+[[Chicken alfredo, please!|ChickenAlfredo]] 
+[[Miso soup sounds good!|MisoSoup]]</body>
+		<position x="-56" y="139"></position>
+		<colorID>0</colorID>
+	</node>
+	<node>
+		<title>MisoSoup</title>
+		<tags></tags>
+		<body><<set $foodChosen to "miso soup">>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+<<if $foodChosen is "chicken alfredo">>
+    All right, one chicken alfredo, coming right up.
+<<endif>>
+<<if $foodChosen is "miso soup">>
+    All right, one miso soup, coming right up.
+<<endif>>
+<</Textbox>>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+... Here you go. One miso soup.
+<</Textbox>>
+
+<<Textbox>>
+<<name|First Mate>>
+<<portrait|hajime>>
+Thanks!
+<</Textbox>>
+
+[[Time to eat!|Eat]]</body>
+		<position x="438" y="389"></position>
+		<colorID>0</colorID>
+	</node>
+	<node>
+		<title>Eat</title>
+		<tags></tags>
+		<body><<Textbox>>
+<<name|First Mate>>
+<<portrait|hajime>>
+<<if $foodChosen is "chicken alfredo">>
+    That was some good chicken alfredo! <<print $foodChosen>>
+<<endif>>
+<<if $foodChosen is "miso soup">>
+    That was some good miso soup! <<print $foodChosen>>
+<<endif>>
+<</Textbox>>
+
+<<Textbox>>
+<<name|Cheff>>
+<<portrait|teruteru>>
+Glad you like it.
+<</Textbox>></body>
+		<position x="815" y="238"></position>
+		<colorID>0</colorID>
+	</node>
+</nodes>
