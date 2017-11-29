@@ -1,8 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Scripts\OptionSetController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Resources\Json\medicDialougueTest.json">
     <Files>
       <File FileName="Assets\Resources\Scripts\OptionSetController.cs" Line="1" Column="1" />
+      <File FileName="Assets\YarnSpinner\Examples\DemoScripts\ExampleVariableStorage.cs" Line="1" Column="1" />
+      <File FileName="Assets\YarnSpinner\Code\DialogueRunner.cs" Line="1" Column="1" />
+      <File FileName="Assets\YarnSpinner\Code\Loader.cs" Line="331" Column="1" />
+      <File FileName="Assets\Resources\Json\medicDialougueTest.json" Line="1" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

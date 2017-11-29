@@ -2,7 +2,7 @@
 	{
 		"title": "Start",
 		"tags": "",
-		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_neutral>>\nAttention!\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nSir! (Salutes)\n<</Textbox>>\n\n[[What can you tell me about this residue?|ResidueClueBegin]]\n[[We'll talk more later.|ExitConversation]]",
+		"body": "<<set $medic_loyalty to 4>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_neutral>>\nAttention!\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nSir! (Salutes)\n<</Textbox>>\n\n[[What can you tell me about this residue?|ResidueClueBegin]]\n[[We'll talk more later.|ExitConversation]]",
 		"position": {
 			"x": -30,
 			"y": 86
@@ -52,7 +52,7 @@
 	{
 		"title": "MedicSuspicious",
 		"tags": "",
-		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_upset>>\nExcuse me, Captain, but if you don't have faith in me, then I'd appreciate being left to my duties.\n<</Textbox>>\n\n<<Textbox>>\n(Medic Loyalty -1)\n<</Textbox>>",
+		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_upset>>\nExcuse me, Captain, but if you don't have faith in me, then I'd appreciate being left to my duties.\n<</Textbox>>\n\n<<Textbox>>\n<<set $medic_loyalty to $medic_loyalty - 1>>\n(Medic Loyalty -1)\n<</Textbox>>",
 		"position": {
 			"x": 500,
 			"y": 346
