@@ -1,0 +1,62 @@
+[
+	{
+		"title": "Medic",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_neutral>>\nAttention!\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nSir! (Salutes)\n<</Textbox>>\n\n\n[[What can you tell me about this residue?|Medic.Residue]]\n[[We'll talk more later.|Medic.Exit]]",
+		"position": {
+			"x": -56,
+			"y": 36
+		},
+		"colorID": 6
+	},
+	{
+		"title": "Medic.Exit",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nYes sir.\n<</Textbox>>",
+		"position": {
+			"x": -55,
+			"y": 323
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Medic.Residue",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nApologies, Captain! Unfortunately, due to the anatomy of my species, we sometimes...\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_talking>>\nWait a second...\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_talking>>\nThis is definitely not from me. The color, the texture...\nand look how it cured!\n<</Textbox>>\n\n[[So what's it from?|Medic.Analysis]]\n[[You sure about that?|Medic.Suspicious]]",
+		"position": {
+			"x": 225,
+			"y": 42
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Medic.Analysis",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nWell, it's definitely biological. And I'm pretty sure humans don't produce something like this.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_talking>>\nThat leaves the First Mate. It's rare, but his species does produce something like this in moments of great stress.\n<</Textbox>>\n\n[[Sounds pretty concrete to me.|Medic.ConfirmFirstMate]]\n[[That sounds ridiculous.|Medic.Suspicious]]",
+		"position": {
+			"x": 211,
+			"y": 321
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Medic.ConfirmFirstMate",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_talking>>\nIt does, but let me do a few tests before we go pointing fingers.\n<</Textbox>>\n\n<<Textbox>>\n(\"Residue\" Key Dialogue Unlocked)\n<</Textbox>>\n\n[[We'll talk more later.|Medic.Exit]]",
+		"position": {
+			"x": 474,
+			"y": 31
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Medic.Suspicious",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_angry>>\nExcuse me, Captain, but if you don't have faith in me, then I'd appreciate being left to my duties.\n<</Textbox>>",
+		"position": {
+			"x": 492,
+			"y": 293
+		},
+		"colorID": 0
+	}
+]

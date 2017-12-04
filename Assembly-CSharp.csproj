@@ -46,6 +46,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Resources\Scripts\CharacterClick.cs" />
      <Compile Include="Assets\Resources\Scripts\DialogueUITest.cs" />
      <Compile Include="Assets\Resources\Scripts\OptionSetController.cs" />
      <Compile Include="Assets\Scripts\NewBehaviourScript.cs" />

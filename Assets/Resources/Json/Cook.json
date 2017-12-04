@@ -1,0 +1,62 @@
+[
+	{
+		"title": "Cook",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_laughing>>\nEvening, Cook.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Chef>>\n<<portrait|cook_laughing>>\nEvening, Cap.\n<</Textbox>>\n\n[[Have anything to contribute to the investigation?|Cook.Ask]]\n\n<<if visited(\"Medic.Residue\")>>\n    [[Just spoke to the medic recently about that residue.|Cook.Residue]]\n<<endif>>",
+		"position": {
+			"x": -919,
+			"y": -273
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Cook.Residue",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nReally? What'd you find?\n<</Textbox>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_neutral>>\nApparently, it's a species thing. According to the medic, the first mate is able to produce it, but only under extreme duress.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nHuh.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nI don't know, Cap. That doesn't sound right to me.\n<</Textbox>>\n\n[[What do you mean?|Cook.Elaborate]]\n[[You think you got a better suggestion?|Cook.Suspicious]]",
+		"position": {
+			"x": -614,
+			"y": -279
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Cook.Ask",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nUnfortunately, no. I was stuck in the mess putting out the fire when the murder happened.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nAfraid there's not much I can contribute.\n<</Textbox>>",
+		"position": {
+			"x": -919,
+			"y": -6
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Cook.Suspicious",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_angry>>\nWhat does that mean?\n<</Textbox>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_angry>>\nI mean, you would rather be giving me contradictions than actual eveidence I could use. I can imagine that residue is actually one of those sauces you keep with you.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_angry>>\nListen. I've got bigger messes to clean than yours. Go figure out your little mystery by yourself.\n<</Textbox>>",
+		"position": {
+			"x": -626,
+			"y": 0
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Cook.Elaborate",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nThere's a lot more reason for the first mate to be nervous than just the murder. Last port we left before this whole business went down, he got a message from his partner saying they was coming down with something bad.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nI think the murder might be exarcerbating things a bit.\n<</Textbox>>\n\n[[Possibly. Maybe he was close to a breakdown and did something he shouldn't?|Cook.Engineer]]\n[[You think you got a better suggestion?|Cook.Suspicious]]",
+		"position": {
+			"x": -371,
+			"y": -294
+		},
+		"colorID": 0
+	},
+	{
+		"title": "Cook.Engineer",
+		"tags": "",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nHonestly, Cap? He just doesn't seem like that kind of person. I mean, I might be wrong, but it would be a hell of a shock to me.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nYou know what you should do? Talk to the Engineer. She said she was in the bridge when it happened, but I can definitely remember hearing her voice down the corridor from me at the time.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nShe might have been talking through an emergency feed, but you never know.\n<</Textbox>>\n\n<<Textbox>>\n(\"Engineer's Alibi\" Key Dialogue Unlocked)\n<</Textbox>>",
+		"position": {
+			"x": -338,
+			"y": -17
+		},
+		"colorID": 0
+	}
+]
