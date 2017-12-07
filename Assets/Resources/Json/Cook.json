@@ -2,7 +2,7 @@
 	{
 		"title": "Cook",
 		"tags": "",
-		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_laughing>>\nEvening, Cook.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Chef>>\n<<portrait|cook_laughing>>\nEvening, Cap.\n<</Textbox>>\n\n[[Have anything to contribute to the investigation?|Cook.Ask]]\n\n<<if visited(\"Medic.Residue\")>>\n    [[Just spoke to the medic recently about that residue.|Cook.Residue]]\n<<endif>>",
+		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain>>\nEvening, Cook.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_laughing>>\nEvening, Cap.\n<</Textbox>>\n\n[[Have anything to contribute to the investigation?|Cook.Ask]]\n\n<<if visited(\"Medic.Residue\")>>\n    [[Just spoke to the medic recently about that residue.|Cook.Residue]]\n<<endif>>",
 		"position": {
 			"x": -919,
 			"y": -273
@@ -12,7 +12,7 @@
 	{
 		"title": "Cook.Residue",
 		"tags": "",
-		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nReally? What'd you find?\n<</Textbox>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_neutral>>\nApparently, it's a species thing. According to the medic, the first mate is able to produce it, but only under extreme duress.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nHuh.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nI don't know, Cap. That doesn't sound right to me.\n<</Textbox>>\n\n[[What do you mean?|Cook.Elaborate]]\n[[You think you got a better suggestion?|Cook.Suspicious]]",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nReally? What'd you find?\n<</Textbox>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain>>\nApparently, it's a species thing. According to the medic, the first mate is able to produce it, but only under extreme duress.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nHuh.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_neutral>>\nI don't know, Cap. That doesn't sound right to me.\n<</Textbox>>\n\n[[What do you mean?|Cook.Elaborate]]\n[[You think you got a better suggestion?|Cook.Suspicious]]",
 		"position": {
 			"x": -614,
 			"y": -279
@@ -32,7 +32,7 @@
 	{
 		"title": "Cook.Suspicious",
 		"tags": "",
-		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_angry>>\nWhat does that mean?\n<</Textbox>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_angry>>\nI mean, you would rather be giving me contradictions than actual eveidence I could use. I can imagine that residue is actually one of those sauces you keep with you.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_angry>>\nListen. I've got bigger messes to clean than yours. Go figure out your little mystery by yourself.\n<</Textbox>>",
+		"body": "<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_angry>>\nWhat does that mean?\n<</Textbox>>\n\n<<Textbox>>\n<<name|Captain>>\n<<portrait|captain>>\nI mean, you would rather be giving me contradictions than actual eveidence I could use. I can imagine that residue is actually one of those sauces you keep with you.\n<</Textbox>>\n\n<<Textbox>>\n<<name|Cook>>\n<<portrait|cook_angry>>\nListen. I've got bigger messes to clean than yours. Go figure out your little mystery by yourself.\n<</Textbox>>",
 		"position": {
 			"x": -626,
 			"y": 0

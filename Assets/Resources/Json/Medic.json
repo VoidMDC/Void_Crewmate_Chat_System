@@ -2,7 +2,7 @@
 	{
 		"title": "Medic",
 		"tags": "",
-		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain_neutral>>\nAttention!\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nSir! (Salutes)\n<</Textbox>>\n\n\n[[What can you tell me about this residue?|Medic.Residue]]\n[[We'll talk more later.|Medic.Exit]]",
+		"body": "<<Textbox>>\n<<name|Captain>>\n<<portrait|captain>>\nAttention!\n<</Textbox>>\n\n<<Textbox>>\n<<name|Medic>>\n<<portrait|medic_neutral>>\nSir! (Salutes)\n<</Textbox>>\n\n\n[[What can you tell me about this residue?|Medic.Residue]]\n[[We'll talk more later.|Medic.Exit]]",
 		"position": {
 			"x": -56,
 			"y": 36
